@@ -69,10 +69,8 @@ const Sidemenu: React.FC<{
       display: 'flex',
       flexDirection: 'column',
       transition: 'width 0.3s ease',
-      position: currentPage === 'tech-support' ? 'absolute' : 'relative',
-      left: currentPage === 'tech-support' ? '0' : 'auto',
-      top: currentPage === 'tech-support' ? '0' : 'auto',
-      zIndex: currentPage === 'tech-support' ? 4 : 3
+      position: 'relative',
+      flexShrink: 0
     }}>
       {/* Brand Section */}
       <div style={{ padding: '40px 40px 0 40px' }}>
@@ -422,11 +420,11 @@ const SecondarySidemenu: React.FC<{ isVisible: boolean }> = ({ isVisible }) => {
       borderRight: '1px solid #dfe5e8',
       display: 'flex',
       flexDirection: 'column',
-      position: 'absolute',
-      left: isVisible ? '140px' : '-240px',
-      top: 0,
-      transition: 'left 0.3s ease',
-      zIndex: 2
+      position: 'relative',
+      flexShrink: 0,
+      opacity: isVisible ? 1 : 0,
+      visibility: isVisible ? 'visible' : 'hidden',
+      transition: 'opacity 0.3s ease, visibility 0.3s ease'
     }}>
       {/* Brand Section */}
       <div style={{ padding: '24px 24px 0 24px' }}>
@@ -1087,20 +1085,12 @@ const App: React.FC = () => {
     }
   };
 
-  const getMainContentMargin = () => {
-    if (currentPage === 'tech-support') {
-      return '380px'; // Always 380px for tech support page, regardless of main menu state
-    }
-    return isSidemenuCollapsed ? '140px' : '312px';
-  };
-
   return (
     <div style={{
       fontFamily: "'Source Sans Pro', system-ui, -apple-system, sans-serif",
       display: 'flex',
       minHeight: '100vh',
-      backgroundColor: '#ffffff',
-      position: 'relative'
+      backgroundColor: '#ffffff'
     }}>
 
       {/* Main Sidemenu */}
@@ -1117,8 +1107,6 @@ const App: React.FC = () => {
       {/* Main Content */}
       <div style={{
         flex: 1,
-        marginLeft: getMainContentMargin(),
-        transition: 'margin-left 0.3s ease',
         minHeight: '100vh'
       }}>
         {currentPage === 'home' ? (
