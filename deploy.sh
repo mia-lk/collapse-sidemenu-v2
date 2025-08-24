@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Build the project
+echo "Building project..."
+npm run build
+
+echo "Build complete! Your files are ready in the 'dist' folder."
+echo ""
+echo "To deploy your site, you can:"
+echo ""
+echo "1. NETLIFY DROP (Easiest):"
+echo "   - Go to https://app.netlify.com/drop"
+echo "   - Drag and drop the 'dist' folder"
+echo "   - Your site will be live instantly!"
+echo ""
+echo "2. VERCEL:"
+echo "   - Go to https://vercel.com"
+echo "   - Sign up with GitHub"
+echo "   - Import your repository"
+echo "   - Deploy automatically"
+echo ""
+echo "3. SURGE (Command line):"
+echo "   - Install: npm install -g surge"
+echo "   - Run: surge dist"
+echo ""
+echo "4. FIREBASE HOSTING:"
+echo "   - Install: npm install -g firebase-tools"
+echo "   - Run: firebase init hosting"
+echo "   - Deploy: firebase deploy"
+echo ""
+echo "Your 'dist' folder is ready for deployment!"
