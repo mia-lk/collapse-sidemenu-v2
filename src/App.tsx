@@ -1093,15 +1093,18 @@ const App: React.FC = () => {
   const getMainContentMargin = () => {
     const mainSidemenuWidth = isSidemenuCollapsed ? 140 : 312;
     const secondarySidemenuWidth = currentPage === 'tech-support' ? 240 : 0;
-    return `${mainSidemenuWidth + secondarySidemenuWidth}px`;
+    return mainSidemenuWidth + secondarySidemenuWidth;
   };
+
+  const totalSidemenuWidth = getMainContentMargin();
 
   return (
     <div style={{
       fontFamily: "'Source Sans Pro', system-ui, -apple-system, sans-serif",
-      position: 'relative',
       minHeight: '100vh',
-      backgroundColor: '#ffffff'
+      backgroundColor: '#ffffff',
+      position: 'relative',
+      overflow: 'hidden'
     }}>
 
       {/* Main Sidemenu */}
@@ -1117,10 +1120,13 @@ const App: React.FC = () => {
 
       {/* Main Content */}
       <div style={{
-        marginLeft: getMainContentMargin(),
-        transition: 'margin-left 0.3s ease',
-        minHeight: '100vh',
-        width: `calc(100vw - ${getMainContentMargin()})`
+        position: 'absolute',
+        left: `${totalSidemenuWidth}px`,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        transition: 'left 0.3s ease',
+        backgroundColor: '#ffffff'
       }}>
         {currentPage === 'home' ? (
           <Homepage onNavigate={handleNavigate} />
