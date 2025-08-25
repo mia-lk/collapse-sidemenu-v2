@@ -69,8 +69,10 @@ const Sidemenu: React.FC<{
       display: 'flex',
       flexDirection: 'column',
       transition: 'width 0.3s ease',
-      position: 'relative',
-      flexShrink: 0
+      position: 'absolute',
+      left: 0,
+      top: 0,
+      zIndex: 10
     }}>
       {/* Brand Section */}
       <div style={{ padding: '40px 40px 0 40px' }}>
@@ -394,7 +396,7 @@ const Sidemenu: React.FC<{
 };
 
 // Secondary Sidemenu Component (Tech Support)
-const SecondarySidemenu: React.FC<{ isVisible: boolean }> = ({ isVisible }) => {
+const SecondarySidemenu: React.FC<{ isVisible: boolean; mainSidemenuWidth: number }> = ({ isVisible, mainSidemenuWidth }) => {
   const [activeChat, setActiveChat] = useState<string | null>('Talk to a human');
 
   const mainMenuItems = [
@@ -420,11 +422,13 @@ const SecondarySidemenu: React.FC<{ isVisible: boolean }> = ({ isVisible }) => {
       borderRight: '1px solid #dfe5e8',
       display: 'flex',
       flexDirection: 'column',
-      position: 'relative',
-      flexShrink: 0,
+      position: 'absolute',
+      left: `${mainSidemenuWidth}px`,
+      top: 0,
+      zIndex: 5,
       opacity: isVisible ? 1 : 0,
       visibility: isVisible ? 'visible' : 'hidden',
-      transition: 'opacity 0.3s ease, visibility 0.3s ease'
+      transition: 'opacity 0.3s ease, visibility 0.3s ease, left 0.3s ease'
     }}>
       {/* Brand Section */}
       <div style={{ padding: '24px 24px 0 24px' }}>
@@ -1095,7 +1099,7 @@ const App: React.FC = () => {
   return (
     <div style={{
       fontFamily: "'Source Sans Pro', system-ui, -apple-system, sans-serif",
-      display: 'flex',
+      position: 'relative',
       minHeight: '100vh',
       backgroundColor: '#ffffff'
     }}>
@@ -1109,13 +1113,14 @@ const App: React.FC = () => {
       />
 
       {/* Secondary Sidemenu (Tech Support) */}
-      <SecondarySidemenu isVisible={currentPage === 'tech-support'} />
+      <SecondarySidemenu isVisible={currentPage === 'tech-support'} mainSidemenuWidth={isSidemenuCollapsed ? 140 : 312} />
 
       {/* Main Content */}
       <div style={{
-        width: `calc(100vw - ${getMainContentMargin()})`,
-        transition: 'width 0.3s ease',
-        minHeight: '100vh'
+        marginLeft: getMainContentMargin(),
+        transition: 'margin-left 0.3s ease',
+        minHeight: '100vh',
+        width: `calc(100vw - ${getMainContentMargin()})`
       }}>
         {currentPage === 'home' ? (
           <Homepage onNavigate={handleNavigate} />
