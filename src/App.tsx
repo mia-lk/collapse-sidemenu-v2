@@ -1085,6 +1085,13 @@ const App: React.FC = () => {
     }
   };
 
+  // Calculate the total width of all sidemenus
+  const getMainContentMargin = () => {
+    const mainSidemenuWidth = isSidemenuCollapsed ? 140 : 312;
+    const secondarySidemenuWidth = currentPage === 'tech-support' ? 240 : 0;
+    return `${mainSidemenuWidth + secondarySidemenuWidth}px`;
+  };
+
   return (
     <div style={{
       fontFamily: "'Source Sans Pro', system-ui, -apple-system, sans-serif",
@@ -1107,6 +1114,8 @@ const App: React.FC = () => {
       {/* Main Content */}
       <div style={{
         flex: 1,
+        marginLeft: getMainContentMargin(),
+        transition: 'margin-left 0.3s ease',
         minHeight: '100vh'
       }}>
         {currentPage === 'home' ? (
