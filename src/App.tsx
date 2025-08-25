@@ -1113,9 +1113,8 @@ const App: React.FC = () => {
 
       {/* Main Content */}
       <div style={{
-        flex: 1,
-        marginLeft: getMainContentMargin(),
-        transition: 'margin-left 0.3s ease',
+        width: `calc(100vw - ${getMainContentMargin()})`,
+        transition: 'width 0.3s ease',
         minHeight: '100vh'
       }}>
         {currentPage === 'home' ? (
